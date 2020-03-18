@@ -60,7 +60,7 @@ etcd-manager-ctl --backup-store=s3://my.clusters/test.my.clusters/backups/etcd/e
 ```
 
 Note that this does not start the restore immediately; you need to restart etcd on all masters.
-You can do this with a `docker stop` or `kill` on the etcd-manager containers on the masters (the container names start with `k8s_etcd-manager_etcd-manager`).
+Because etcd runs as a [static pod](https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/), it's not possible to use "kubectl delete pod". You can restart the etcd-manager containers with a `docker stop` or `kill` on the master nodes (the container names start with `k8s_etcd-manager_etcd-manager`).
 The etcd-manager containers should restart automatically, and pick up the restore command. You also have the option to roll your masters quickly, but restarting the containers is preferred.
 
 A new etcd cluster will be created and the backup will be
